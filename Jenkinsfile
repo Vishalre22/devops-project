@@ -20,12 +20,10 @@ pipeline  {
         }
         stage('Deploy to kubernetes')  {
             steps  {
-                withCredentials([file(credentialsId: 'kind-kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh '''
-                     kubectl get nodes
-                     kubectl apply -f k8s/
-                    '''
-                }
+                 sh '''
+                  kubectl get nodes
+                  kubectl apply -f k8s/
+                 '''
             }
         }
     }
