@@ -1,0 +1,20 @@
+kind:  Deployment
+apiVersion:  apps/v1
+metadata:
+  name:  devops-app-deployment
+  namespace:  devops
+spec:
+  replicas:  2
+  selector:
+    matchLables:
+      app:  devops
+  template:
+    metadata:
+      labels:
+        app:  devops
+    spec:
+      containers:
+      -  name:  devops-container
+         image:  vishalaramur/devops-app:latest
+         ports:
+      -  conatinerPort:  5000
