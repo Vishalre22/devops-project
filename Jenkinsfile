@@ -9,7 +9,7 @@ pipeline  {
         }
         stage('Push Image to Docker Hub')  {
             steps  {
-                withCredentials([usernamePasswor(credentialsId: 'dockerhub' , usernameVariable: 'DOCKER_USER' , passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub' , usernameVariable: 'DOCKER_USER' , passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
                     docker login -u $DOCKER_USER -p $DOCKER_PASS
                     docker push vishalaramur/devops-app:latest
@@ -20,7 +20,12 @@ pipeline  {
         }
         stage('Deploy to kubernetes')  {
             steps  {
-                 sh 'kubectl apply -f k8s/'
+                withCredeentials([file(credentialsId: 'kind-kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh '''
+                     kubectl get nodes
+                     kubectl apply -f k8s/
+                    '''
+                }
             }
         }
     }
