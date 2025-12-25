@@ -7,11 +7,11 @@ spec:
   replicas:  2
   selector:
     matchLables:
-      app:  devops
+      app:  devops-app
   template:
     metadata:
       labels:
-        app:  devops
+        app:  devops-app
     spec:
       containers:
       -  name:  devops-container
